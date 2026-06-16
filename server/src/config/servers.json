@@ -4,10 +4,10 @@
     "name": "US East",
     "city": "New York",
     "country": "United States",
-    "endpointHost": "vpn-us-east.example.com",
+    "endpointHost": "68.183.104.63",
     "endpointPort": 51820,
-    "serverPublicKey": "REPLACE_WITH_REAL_SERVER_WG_PUBLIC_KEY_1",
-    "agentUrl": "https://vpn-us-east.example.com:5000",
+    "serverPublicKey": "NXMxFbH7XFyTKOT4CDnwmGNVR85YTxFKccWu3XUCzwo=",
+    "agentUrl": "http://68.183.104.63:5000",
     "subnetCidr": "10.7.0.0/24",
     "dns": "1.1.1.1"
   },

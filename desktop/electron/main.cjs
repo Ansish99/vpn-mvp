@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("node:path");
 const fs = require("node:fs");
 const os = require("node:os");
-const { execFile } = require("node:child_process");
+const { execFile, spawn } = require("node:child_process");
 const https = require("node:https");
 const { generateKeyPair } = require("./wgKeys.cjs");
 
@@ -32,12 +32,19 @@ function buildConfig({ privateKey, assignedIp, dns, serverPublicKey, endpointHos
  * pkexec so Linux desktops show a native auth prompt instead of requiring
  * the whole app to run as root. macOS/Windows need an equivalent privileged
  * helper (see README) — out of scope for this MVP.
+ *
+ * stdio is inherited (not piped) so that when no graphical polkit agent is
+ * running, pkexec's text-based password fallback can actually read from the
+ * terminal this app was launched from instead of failing instantly against
+ * a disconnected pipe.
  */
 function runPrivileged(args) {
   return new Promise((resolve, reject) => {
-    execFile("pkexec", args, (err, _stdout, stderr) => {
-      if (err) reject(new Error(stderr || err.message));
-      else resolve();
+    const child = spawn("pkexec", args, { stdio: "inherit" });
+    child.on("error", reject);
+    child.on("exit", (code) => {
+      if (code === 0) resolve();
+      else reject(new Error(`${args.join(" ")} exited with code ${code}`));
     });
   });
 }
