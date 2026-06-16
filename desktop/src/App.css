@@ -1,0 +1,153 @@
+.auth-screen,
+.dashboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+}
+
+.auth-screen h1,
+.dashboard-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: var(--text-dim);
+  margin-bottom: 24px;
+}
+
+.auth-screen form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input,
+select {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.auth-screen button[type="submit"] {
+  background: var(--accent);
+  color: white;
+  padding: 11px;
+  margin-top: 6px;
+}
+
+.link {
+  background: none;
+  color: var(--accent);
+  font-weight: 500;
+  padding: 8px 0;
+  text-align: left;
+}
+
+.error {
+  color: var(--red);
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+}
+
+.status-card.connected .status-dot {
+  background: var(--green);
+  box-shadow: 0 0 0 4px var(--accent-dim);
+}
+
+.status-label {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.status-detail {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.field-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  display: block;
+}
+
+select {
+  margin-bottom: 20px;
+}
+
+.connect-button {
+  background: var(--accent);
+  color: white;
+  padding: 14px;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.connect-button.disconnect {
+  background: var(--panel);
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.connect-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ip-row {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.ip-row strong {
+  color: var(--text);
+  font-family: ui-monospace, Consolas, monospace;
+}

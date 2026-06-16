@@ -1,0 +1,38 @@
+[
+  {
+    "id": "us-east",
+    "name": "US East",
+    "city": "New York",
+    "country": "United States",
+    "endpointHost": "vpn-us-east.example.com",
+    "endpointPort": 51820,
+    "serverPublicKey": "REPLACE_WITH_REAL_SERVER_WG_PUBLIC_KEY_1",
+    "agentUrl": "https://vpn-us-east.example.com:5000",
+    "subnetCidr": "10.7.0.0/24",
+    "dns": "1.1.1.1"
+  },
+  {
+    "id": "eu-west",
+    "name": "EU West",
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "endpointHost": "vpn-eu-west.example.com",
+    "endpointPort": 51820,
+    "serverPublicKey": "REPLACE_WITH_REAL_SERVER_WG_PUBLIC_KEY_2",
+    "agentUrl": "https://vpn-eu-west.example.com:5000",
+    "subnetCidr": "10.8.0.0/24",
+    "dns": "1.1.1.1"
+  },
+  {
+    "id": "ap-southeast",
+    "name": "Asia Pacific",
+    "city": "Singapore",
+    "country": "Singapore",
+    "endpointHost": "vpn-ap-southeast.example.com",
+    "endpointPort": 51820,
+    "serverPublicKey": "REPLACE_WITH_REAL_SERVER_WG_PUBLIC_KEY_3",
+    "agentUrl": "https://vpn-ap-southeast.example.com:5000",
+    "subnetCidr": "10.9.0.0/24",
+    "dns": "1.1.1.1"
+  }
+]

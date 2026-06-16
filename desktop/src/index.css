@@ -1,0 +1,31 @@
+:root {
+  --bg: #0f1115;
+  --panel: #161922;
+  --border: #262a35;
+  --text: #e6e8ec;
+  --text-dim: #9aa0ad;
+  --accent: #5b8cff;
+  --accent-dim: rgba(91, 140, 255, 0.15);
+  --green: #34d399;
+  --red: #f87171;
+
+  font: 15px/1.5 system-ui, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
