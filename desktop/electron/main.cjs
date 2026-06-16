@@ -28,19 +28,17 @@ function buildConfig({ privateKey, assignedIp, dns, serverPublicKey, endpointHos
 }
 
 /**
- * wg-quick needs root to create a network interface. We shell out via
- * pkexec so Linux desktops show a native auth prompt instead of requiring
- * the whole app to run as root. macOS/Windows need an equivalent privileged
- * helper (see README) — out of scope for this MVP.
- *
- * stdio is inherited (not piped) so that when no graphical polkit agent is
- * running, pkexec's text-based password fallback can actually read from the
- * terminal this app was launched from instead of failing instantly against
- * a disconnected pipe.
+ * wg-quick needs root to create a network interface. We use `sudo -n`
+ * against a scoped NOPASSWD sudoers rule for just the wg-quick binary
+ * (see README) — this avoids depending on a graphical polkit agent or on
+ * password prompts surviving however the app's stdio happens to be wired
+ * up by whatever launched it (a real problem with pkexec's text fallback
+ * under tools like `concurrently`). macOS/Windows need an equivalent
+ * privileged helper — out of scope for this MVP.
  */
 function runPrivileged(args) {
   return new Promise((resolve, reject) => {
-    const child = spawn("pkexec", args, { stdio: "inherit" });
+    const child = spawn("sudo", ["-n", ...args], { stdio: "inherit" });
     child.on("error", reject);
     child.on("exit", (code) => {
       if (code === 0) resolve();
