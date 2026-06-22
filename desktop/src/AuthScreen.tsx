@@ -28,8 +28,31 @@ export function AuthScreen({ onAuthenticated }: Props) {
 
   return (
     <div className="auth-screen">
-      <h1>SecureTunnel</h1>
-      <p className="subtitle">{mode === "login" ? "Log in to connect" : "Create your account"}</p>
+      <div className="auth-brand">
+        <img className="auth-mark" src="/favicon.svg" alt="" />
+        <h1 className="auth-title">SecureTunnel</h1>
+        <p className="subtitle">
+          {mode === "login" ? "Welcome back — log in to connect" : "Create your account to get started"}
+        </p>
+      </div>
+
+      <div className="segmented" role="tablist">
+        <button
+          type="button"
+          className={`segmented-btn ${mode === "login" ? "active" : ""}`}
+          onClick={() => setMode("login")}
+        >
+          Log in
+        </button>
+        <button
+          type="button"
+          className={`segmented-btn ${mode === "register" ? "active" : ""}`}
+          onClick={() => setMode("register")}
+        >
+          Sign up
+        </button>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -47,13 +70,15 @@ export function AuthScreen({ onAuthenticated }: Props) {
           required
         />
         {error && <div className="error">{error}</div>}
-        <button type="submit" disabled={loading}>
-          {loading ? "Please wait…" : mode === "login" ? "Log In" : "Sign Up"}
+        <button className="primary-btn" type="submit" disabled={loading}>
+          {loading ? "Please wait…" : mode === "login" ? "Log In" : "Create Account"}
         </button>
       </form>
-      <button className="link" onClick={() => setMode(mode === "login" ? "register" : "login")}>
-        {mode === "login" ? "Need an account? Sign up" : "Already have an account? Log in"}
-      </button>
+
+      <p className="auth-foot">
+        <span className="lock-glyph" aria-hidden="true">🔒</span>
+        End-to-end encrypted · Keys never leave your device
+      </p>
     </div>
   );
 }
