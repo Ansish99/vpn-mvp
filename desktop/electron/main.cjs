@@ -70,6 +70,11 @@ ipcMain.handle("wg:generateKeyPair", () => generateKeyPair());
 ipcMain.handle("wg:connect", async (_event, tunnelConfig) => {
   const conf = buildConfig(tunnelConfig);
   fs.writeFileSync(confPath, conf, { mode: 0o600 });
+  // Sync openresolv with systemd-resolved before bringing the interface up;
+  // without this wg-quick fails with "resolvconf: signature mismatch".
+  await runPrivileged(["resolvconf", "-u"]);
+  // Tear down any stale interface left over from a previous session.
+  await runPrivileged(["wg-quick", "down", confPath]).catch(() => {});
   await runPrivileged(["wg-quick", "up", confPath]);
   return { ok: true };
 });

@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 30px 26px 26px;
+  padding: 28px 24px 24px;
 }
 
 /* ───────────────────────── Shared form controls ───────────────────────── */
@@ -13,7 +13,7 @@ select {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   color: var(--text);
-  border-radius: 11px;
+  border-radius: 12px;
   padding: 12px 13px;
   font-size: 14px;
   width: 100%;
@@ -48,17 +48,32 @@ button {
 }
 
 .primary-btn {
+  position: relative;
+  overflow: hidden;
   background: var(--gradient);
   color: #fff;
   padding: 13px;
   margin-top: 4px;
-  box-shadow: 0 8px 22px -8px rgba(124, 92, 255, 0.7);
+  box-shadow: 0 8px 28px -8px rgba(122, 88, 255, 0.65);
   transition: transform 0.12s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.primary-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.18) 50%, transparent 62%);
+  transform: translateX(-110%);
 }
 
 .primary-btn:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 12px 28px -8px rgba(124, 92, 255, 0.8);
+  box-shadow: 0 14px 32px -8px rgba(122, 88, 255, 0.75);
+}
+
+.primary-btn:hover:not(:disabled)::after {
+  transform: translateX(110%);
+  transition: transform 0.55s ease;
 }
 
 .primary-btn:active:not(:disabled) {
@@ -66,7 +81,7 @@ button {
 }
 
 .primary-btn:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: default;
 }
 
@@ -88,16 +103,16 @@ button {
 .error {
   color: var(--red);
   font-size: 13px;
-  background: rgba(248, 113, 113, 0.1);
-  border: 1px solid rgba(248, 113, 113, 0.25);
-  border-radius: 9px;
-  padding: 9px 11px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.22);
+  border-radius: 10px;
+  padding: 10px 12px;
 }
 
 .field-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-faint);
   margin-bottom: 8px;
@@ -118,18 +133,24 @@ button {
 }
 
 .auth-mark {
-  width: 52px;
-  height: 52px;
-  filter: drop-shadow(0 6px 18px rgba(134, 59, 255, 0.5));
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 6px 22px rgba(139, 61, 255, 0.55));
   margin-bottom: 14px;
+  animation: auth-float 4s ease-in-out infinite;
+}
+
+@keyframes auth-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
 }
 
 .auth-title {
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin: 0 0 6px;
-  background: linear-gradient(120deg, #fff 0%, #d9c9ff 60%, #9ed8ff 100%);
+  background: linear-gradient(120deg, #fff 0%, #d8c6ff 55%, #9ed6ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -146,7 +167,7 @@ button {
   gap: 4px;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 13px;
   padding: 4px;
 }
 
@@ -157,14 +178,14 @@ button {
   font-weight: 600;
   background: transparent;
   color: var(--text-dim);
-  border-radius: 9px;
-  transition: color 0.18s ease, background 0.18s ease;
+  border-radius: 10px;
+  transition: color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
 }
 
 .segmented-btn.active {
-  background: var(--panel);
-  color: var(--text);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background: var(--gradient);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(122, 88, 255, 0.4);
 }
 
 .auth-screen form {
@@ -186,7 +207,7 @@ button {
 
 .lock-glyph {
   font-size: 11px;
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 /* ───────────────────────────── Dashboard ───────────────────────────── */
@@ -199,7 +220,9 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  padding-bottom: 16px;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .brand {
@@ -211,13 +234,13 @@ button {
 .brand-mark {
   width: 26px;
   height: 26px;
-  filter: drop-shadow(0 3px 8px rgba(134, 59, 255, 0.45));
+  filter: drop-shadow(0 2px 8px rgba(139, 61, 255, 0.5));
 }
 
 .brand-name {
   font-size: 16px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 /* ── Connection orb ── */
@@ -233,8 +256,8 @@ button {
 
 .orb {
   position: relative;
-  width: 188px;
-  height: 188px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: transparent;
   display: grid;
@@ -248,7 +271,7 @@ button {
 }
 
 .orb:not(:disabled):active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 .orb:disabled {
@@ -265,32 +288,32 @@ button {
 
 .orb-core {
   position: relative;
-  width: 132px;
-  height: 132px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.06), transparent 60%),
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.07), transparent 58%),
     var(--panel);
   border: 1px solid var(--border-strong);
   transition: all 0.35s ease;
 }
 
 .orb-icon {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   color: var(--text-dim);
   transition: color 0.35s ease;
 }
 
 /* Disconnected */
 .orb--disconnected .orb-core {
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 36px rgba(0, 0, 0, 0.45);
 }
 .orb--disconnected:not(:disabled):hover .orb-core {
   border-color: var(--accent);
-  box-shadow: inset 0 0 30px rgba(124, 92, 255, 0.15), 0 0 0 4px var(--accent-dim);
+  box-shadow: inset 0 0 32px rgba(122, 88, 255, 0.14), 0 0 0 4px var(--accent-dim);
 }
 .orb--disconnected:not(:disabled):hover .orb-icon {
   color: var(--text);
@@ -309,16 +332,19 @@ button {
   animation: orb-pulse 1.6s ease-out infinite;
 }
 .orb--busy .orb-ring--2 {
-  animation-delay: 0.8s;
+  animation-delay: 0.53s;
+}
+.orb--busy .orb-ring--3 {
+  animation-delay: 1.06s;
 }
 
 /* Connected */
 .orb--connected .orb-core {
   background:
-    radial-gradient(circle at 50% 30%, rgba(52, 211, 153, 0.28), transparent 65%),
+    radial-gradient(circle at 50% 28%, rgba(47, 212, 141, 0.32), transparent 62%),
     var(--panel);
   border-color: var(--green);
-  box-shadow: 0 0 36px var(--green-glow), inset 0 0 24px rgba(52, 211, 153, 0.18);
+  box-shadow: 0 0 42px var(--green-glow), inset 0 0 28px rgba(47, 212, 141, 0.16);
 }
 .orb--connected .orb-icon {
   color: var(--green);
@@ -326,19 +352,22 @@ button {
 .orb--connected .orb-ring {
   opacity: 1;
   border-color: var(--green);
-  animation: orb-pulse 2.6s ease-out infinite;
+  animation: orb-pulse 2.8s ease-out infinite;
 }
 .orb--connected .orb-ring--2 {
-  animation-delay: 1.3s;
+  animation-delay: 0.93s;
+}
+.orb--connected .orb-ring--3 {
+  animation-delay: 1.86s;
 }
 
 @keyframes orb-pulse {
   0% {
-    transform: scale(0.72);
-    opacity: 0.55;
+    transform: scale(0.70);
+    opacity: 0.5;
   }
   100% {
-    transform: scale(1.05);
+    transform: scale(1.06);
     opacity: 0;
   }
 }
@@ -370,22 +399,23 @@ button {
 
 .status-pill--connected {
   color: var(--green);
-  border-color: rgba(52, 211, 153, 0.3);
-  background: rgba(52, 211, 153, 0.08);
+  border-color: rgba(47, 212, 141, 0.28);
+  background: var(--green-dim);
 }
 .status-pill--connected .status-dot {
   background: var(--green);
   box-shadow: 0 0 0 3px var(--green-glow);
+  animation: dot-breathe 2.2s ease-in-out infinite;
 }
 
 .status-pill--busy {
   color: var(--brand-2);
-  border-color: rgba(71, 191, 255, 0.3);
-  background: rgba(71, 191, 255, 0.08);
+  border-color: rgba(61, 184, 255, 0.28);
+  background: rgba(61, 184, 255, 0.07);
 }
 .status-pill--busy .status-dot {
   background: var(--brand-2);
-  animation: blink 1s ease-in-out infinite;
+  animation: blink 0.9s ease-in-out infinite;
 }
 
 .status-pill--disconnected {
@@ -393,9 +423,12 @@ button {
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0.3;
-  }
+  50% { opacity: 0.25; }
+}
+
+@keyframes dot-breathe {
+  0%, 100% { box-shadow: 0 0 0 2px var(--green-glow); }
+  50%       { box-shadow: 0 0 0 5px rgba(47, 212, 141, 0.12); }
 }
 
 .status-sub {
@@ -418,10 +451,16 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Controls block ── */
+/* ── Controls glass card ── */
 
 .controls {
   margin-top: auto;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 18px;
 }
 
 .select-wrap {
@@ -476,9 +515,11 @@ button {
 .ip-row strong {
   color: var(--text);
   font-family: ui-monospace, "SF Mono", Consolas, monospace;
-  font-size: 13px;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2px 8px;
+  border-radius: 7px;
+  padding: 2px 9px;
+  letter-spacing: 0.02em;
 }

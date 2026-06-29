@@ -1,3 +1,5 @@
+import rawServers from "../../server/src/config/servers.json";
+
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:4000";
 
 export interface ServerLocation {
@@ -33,19 +35,27 @@ export interface StatusResponse {
 class ApiError extends Error {}
 
 async function request<T>(path: string, options: RequestInit = {}, token?: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  });
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    throw new ApiError(body.error ?? `Request failed (${res.status})`);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+      },
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw new ApiError(body.error ?? `Request failed (${res.status})`);
+    return body as T;
+  } catch (err) {
+    if ((err as Error).name === "AbortError") throw new ApiError("Server unreachable — is the backend running?");
+    throw err;
+  } finally {
+    clearTimeout(timer);
   }
-  return body as T;
 }
 
 export const api = {
@@ -61,7 +71,10 @@ export const api = {
       body: JSON.stringify({ email, password }),
     }),
 
-  servers: () => request<ServerLocation[]>("/api/servers"),
+  servers: (): Promise<ServerLocation[]> =>
+    Promise.resolve(
+      rawServers.map(({ id, name, city, country }) => ({ id, name, city, country })),
+    ),
 
   connect: (token: string, serverId: string, clientPublicKey: string) =>
     request<ConnectResponse>(

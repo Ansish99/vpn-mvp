@@ -37,6 +37,7 @@ export function Dashboard({ token, onLogout }: Props) {
     refreshPublicIp();
     // A fresh app launch never has a live local tunnel even if the backend
     // thinks a prior session is active, so make sure both sides agree.
+    window.vpn.disconnect().catch(() => {});
     api.disconnect(token).catch(() => {});
   }, []);
 
@@ -119,6 +120,7 @@ export function Dashboard({ token, onLogout }: Props) {
         >
           <span className="orb-ring orb-ring--1" />
           <span className="orb-ring orb-ring--2" />
+          <span className="orb-ring orb-ring--3" />
           <span className="orb-core">
             <svg className="orb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 3v9" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
